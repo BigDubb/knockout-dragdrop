@@ -1,0 +1,15 @@
+F-1 Description
+
+Background: The tool expects that the source and the target object exist in the same model.  
+
+            dropFromTarget: function (data, model) {
+                model.target.remove(data);
+                model.source.push(data);
+            }
+
+Issue: There are instances where the target may be dynamic.  The tool should not assume the target and the source both reside in the same object. 
+  
+Resolution: 
+- Change the binding handler to know who is the parent (owner) of the item from which it's been moved.  
+- Items participating in this action must have an interface to the item from which it is being taken. This allows for the parent to remove item once it has been successfully 'dropped' to a new source.  
+- Change how drop is handled - If a drop target is not found the item should not be removed from the parent
