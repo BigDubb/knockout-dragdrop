@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Knockout.dragdrop Demo</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="containerexample.css" type="text/css" media="screen" />
+		
+        <script src="vendor/jquery-1.9.1.js"></script>
+        <script src="vendor/knockout-2.2.1.js"></script>
+        <script src="../lib/knockout.dragdrop.js"></script>
+        <script src="ContainerExample.js"></script>
+    </head>
+    <body>
+		<div class="Example">
+			<script>
+				$(document).ready(function () {
+
+					var example = new Example();
+					ko.applyBindings(example);
+				});
+			</script>
+
+			<script type="text/html" id="target-template">
+				<div>
+					<h4 data-bind="text: $data.Description"></h4>
+					<div>
+						<ul style="min-height:100px" class="target" data-bind="foreach: $data.Source, dropZone: {accepts: 'Source', drop: dropFromSource}">
+							<li><span data-bind="text: Name, dragZone: {name: 'Source', dragEnd: $parent.dragEnd, parent: $parent}"></span></li>
+						</ul>
+					</div>
+				</div>
+			</script>
+
+			<div>
+				<button data-bind="click: AddContainer">Add New Container</button>
+				<div>
+					<div style="overflow-y:auto;" class="zones col-md-12">
+						<ul class="source" data-bind="foreach: Source, dropZone: {accepts: 'Source', drop: dropFromTarget}">
+							<li><span data-bind="text: Name, dragZone: {name: 'Source', dragEnd: $parent.dragEnd, parent: $parent}"></span></li>
+						</ul>
+						<div data-bind="template: { name: 'target-template', foreach: Targets}"></div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+        <a href="https://github.com/One-com/knockout-dragdrop"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+    </body>
+</html>
